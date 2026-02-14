@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glass Tab Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="dashboard">
+    <div class="bg-layer bg-gradient" aria-hidden="true">
+      <div class="bg-orb bg-orb-1"></div>
+      <div class="bg-orb bg-orb-2"></div>
+      <div class="bg-orb bg-orb-3"></div>
+    </div>
+    <div class="bg-layer bg-custom" id="bg-custom" aria-hidden="true"></div>
+
+    <header class="greeting-wrap">
+      <h1 class="greeting" id="greeting">Good day</h1>
+      <p class="search-hint" id="search-hint">Press <kbd>/</kbd> to focus search</p>
+    </header>
+
+    <div class="search-wrap">
+      <form class="glass search-bar" action="https://www.google.com/search" method="get" target="_blank">
+        <input type="text" name="q" placeholder="Search Google or type a URL" class="search-input" id="search-input" autocomplete="off">
+      </form>
+    </div>
+
+    <div class="shortcuts-wrap" id="shortcuts-wrap">
+      <div class="shortcuts-row" id="shortcuts-row"></div>
+      <button type="button" class="shortcut-add" id="shortcut-add" title="Add shortcut" aria-label="Add shortcut">+</button>
+    </div>
+
+    <main class="content">
+      <aside class="left-col">
+        <div class="glass card focus-card">
+          <h2 class="card-title">What's your focus?</h2>
+          <div class="focus-input-wrap">
+            <textarea class="focus-input" id="focus-input" placeholder="One thing to nail today..." rows="2" maxlength="200"></textarea>
+          </div>
+        </div>
+        <div class="glass card favorites-card">
+          <h2 class="card-title">Favorites</h2>
+          <ul class="favorites-list">
+            <li><a href="https://mail.google.com" target="_blank" rel="noopener">Gmail</a></li>
+            <li><a href="https://calendar.google.com" target="_blank" rel="noopener">Calendar</a></li>
+            <li><a href="https://tasks.google.com" target="_blank" rel="noopener">Tasks</a></li>
+            <li><a href="https://youtube.com" target="_blank" rel="noopener">YouTube</a></li>
+            <li><a href="https://twitter.com" target="_blank" rel="noopener">Twitter</a></li>
+          </ul>
+        </div>
+        <div class="glass card tip-card">
+          <span class="tip-label">Tip of the day</span>
+          <p class="tip-text" id="tip-text"></p>
+        </div>
+      </aside>
+
+      <aside class="right-col">
+        <div class="glass card clock-card">
+          <div class="clock-time" id="clock">00:00:00</div>
+          <div class="clock-date" id="date">8 FEB</div>
+        </div>
+        <div class="glass card weather-card">
+          <span class="weather-place" id="weather-place">—</span>
+          <span class="weather-temp" id="weather-temp">—°C</span>
+        </div>
+        <div class="glass card timer-card">
+          <div class="timer-display-wrap">
+            <button type="button" class="timer-adj" id="timer-minus" title="Decrease 5 min" aria-label="Decrease 5 min">−</button>
+            <div class="timer-display" id="timer-display">25:00</div>
+            <button type="button" class="timer-adj" id="timer-plus" title="Add 5 min" aria-label="Add 5 min">+</button>
+          </div>
+          <div class="timer-label">Focus timer</div>
+          <div class="timer-actions">
+            <button type="button" class="timer-btn" id="timer-start" title="Start">▶</button>
+            <button type="button" class="timer-btn" id="timer-pause" title="Pause">⏸</button>
+            <button type="button" class="timer-btn" id="timer-reset" title="Reset">↺</button>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <button type="button" class="customize-btn" id="customize-btn" title="Customize this page" aria-label="Customize this page">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/></svg>
+  </button>
+
+  <div class="modal-overlay" id="customize-modal" hidden>
+    <div class="modal glass card">
+      <div class="modal-header">
+        <h2 class="modal-title">Customize</h2>
+        <button type="button" class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <section class="customize-section">
+          <label class="customize-label">Background</label>
+          <input type="file" id="bg-file" class="bg-file-input" accept="image/*" aria-label="Upload image or GIF from device">
+          <label for="bg-file" class="upload-label">
+            <span class="upload-icon" aria-hidden="true">📁</span>
+            <span class="upload-text">Upload a file from your local device</span>
+          </label>
+          <button type="button" class="btn btn-secondary" id="bg-clear">Use default background</button>
+        </section>
+        <section class="customize-section">
+          <label class="customize-label">Shortcuts</label>
+          <ul class="shortcuts-edit-list" id="shortcuts-edit-list"></ul>
+          <button type="button" class="btn btn-primary" id="shortcut-add-modal">Add shortcut</button>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="add-shortcut-modal" hidden>
+    <div class="modal glass card">
+      <div class="modal-header">
+        <h2 class="modal-title">Add shortcut</h2>
+        <button type="button" class="modal-close" id="add-shortcut-close" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <label class="customize-label">Name</label>
+        <input type="text" class="customize-input" id="shortcut-name" placeholder="e.g. YouTube">
+        <label class="customize-label">URL</label>
+        <input type="url" class="customize-input" id="shortcut-url" placeholder="https://youtube.com">
+        <button type="button" class="btn btn-primary" id="shortcut-save">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
