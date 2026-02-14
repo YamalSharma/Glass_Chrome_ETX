@@ -25,11 +25,6 @@ A Chrome extension that replaces the new tab page with a glassmorphism-style das
 4. Select the folder containing this project (e.g. `Glass_Chrome_ETX`)
 5. Open a new tab to see the dashboard
 
-**Note:** For local use you can leave the `icons` folder empty. For publishing to the Chrome Web Store you need icon files; see [PUBLISH.md](PUBLISH.md).
-
-## Publishing on the Chrome Web Store
-
-To publish so anyone can install it from the Chrome Web Store, see **[PUBLISH.md](PUBLISH.md)** for step-by-step instructions (developer account, icons, ZIP, store listing, and review).
 
 ## Tech
 
